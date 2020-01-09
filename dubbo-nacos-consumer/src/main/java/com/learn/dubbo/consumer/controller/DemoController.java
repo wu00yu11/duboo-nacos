@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/demo")
 public class DemoController {
 
-    @Reference(interfaceName = "demoService")
+    @Reference
     private DemoService demoService;
 
     @RequestMapping(value = "/hello",method = RequestMethod.GET)

@@ -5,6 +5,8 @@ import com.learn.dubbo.nacos.api.DemoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * @program: dubbo-nacos
  * @description:
@@ -13,8 +15,9 @@ import org.springframework.stereotype.Component;
  **/
 @Slf4j
 @Component
-@Service(interfaceName="demoService")
-public class DemoServiceImpl implements DemoService {
+@Service
+public class DemoServiceImpl implements DemoService{
+
     @Override
     public String sayHello(String name) {
         log.info("hello, this is provider's home, can I help you?");
