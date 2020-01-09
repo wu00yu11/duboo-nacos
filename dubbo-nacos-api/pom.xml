@@ -6,16 +6,12 @@
         <groupId>com.learn</groupId>
         <artifactId>dubbo-nacos</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.learn</groupId>
     <artifactId>dubbo-nacos-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>dubbo-nacos-api</name>
-    <description>Demo project for Spring Boot</description>
 
     <build>
         <finalName>dubbo-nacos-api</finalName>
