@@ -6,7 +6,6 @@
     <artifactId>dubbo-nacos</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -20,13 +19,11 @@
         <dubbo-registry-nacos.version>0.0.1</dubbo-registry-nacos.version>
         <dubbo-spring-context-support.version>1.0.2</dubbo-spring-context-support.version>
     </properties>
-
     <modules>
         <module>dubbo-nacos-api</module>
         <module>dubbo-nacos-consumer</module>
         <module>dubbo-nacos-provider</module>
     </modules>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -35,24 +32,9 @@
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-<!--            &lt;!&ndash; guava工具类 &ndash;&gt;
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-
-            &lt;!&ndash; Nacos &ndash;&gt;
-            <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
-                <version>${nacos-boot.version}</version>
-            </dependency>-->
-
+            </dependency><!--&lt;!&ndash; guava工具类 &ndash;&gt; <dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> <version>${guava.version}</version> </dependency> &lt;!&ndash; Nacos &ndash;&gt; <dependency> <groupId>com.alibaba.boot</groupId> <artifactId>nacos-discovery-spring-boot-starter</artifactId> <version>${nacos-boot.version}</version> </dependency>-->
         </dependencies>
     </dependencyManagement>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -95,6 +77,36 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <executions>
+                        <execution>
+                            <id>build-image</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <imageName>mall/${project.artifactId}:${project.version}
+                        </imageName><!-- 这里是你的docker容器所在的服务器ip和端口，docker开放端口请自行百度 -->
+                        <dockerHost>http://192.168.91.140:2375</dockerHost>
+                        <baseImage>java:8</baseImage>
+                        <entryPoint>["java", "-jar",
+                            "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
+                        </entryPoint>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
