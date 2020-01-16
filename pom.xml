@@ -78,36 +78,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>1.2.0</version>
-                    <executions>
-                        <execution>
-                            <id>build-image</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>build</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <imageName>mall/${project.artifactId}:${project.version}
-                        </imageName><!-- 这里是你的docker容器所在的服务器ip和端口，docker开放端口请自行百度 -->
-                        <dockerHost>http://192.168.91.140:2375</dockerHost>
-                        <baseImage>java:8</baseImage>
-                        <entryPoint>["java", "-jar",
-                            "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
-                        </entryPoint>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
